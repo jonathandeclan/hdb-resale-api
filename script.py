@@ -280,7 +280,7 @@ list_of_shopping_mall = [
     'Kallang Wave Mall',
     'Katong Square',
     'Katong V',
-    'KINEX (formerly One KM Mall)',
+    'KINEX',
     'Leisure Park Kallang',
     'Loyang Point',
     'Our Tampines Hub',
