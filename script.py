@@ -410,10 +410,12 @@ mall_name = []
 mall_roadname = []
 mall_lat = []
 mall_long = []
+print('number of malls: '+str(len(list_of_shopping_mall)))
 
 for i in range(0, len(list_of_shopping_mall)):
     query_address = list_of_shopping_mall[i]
     query_string = 'https://developers.onemap.sg/commonapi/search?searchVal='+str(query_address)+'&returnGeom=Y&getAddrDetails=Y'
+    print(str(i)+' '+query_string)
     resp = requests.get(query_string)
     data_mall=json.loads(resp.content)
     
