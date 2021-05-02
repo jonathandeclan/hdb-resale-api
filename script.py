@@ -3,6 +3,8 @@ import requests
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import seaborn as sns
+import time
 
 query_string='https://data.gov.sg/api/action/datastore_search?resource_id=42ff9cfe-abe5-4b54-beda-c88f9bb438ee&limit=101994'
 resp = requests.get(query_string)
@@ -458,13 +460,19 @@ road_name = []
 postal_code = []
 address = []
 count = 0
+print('addresses: '+str(len(address_list)))
 
 for row in range(len(address_list)):
     #formulate query string  
     query_address = address_list[row]
     query_string='https://developers.onemap.sg/commonapi/search?searchVal='+str(query_address)+'&returnGeom=Y&getAddrDetails=Y'
-    resp = requests.get(query_string)          
-
+    print(str(row)+' '+query_string)
+    resp = requests.get(query_string)       
+    print('status: '+str(resp.status_code))   
+    if resp.status_code == 502:
+        print(resp.content)
+        time.sleep(3) # wait for 3 seconds as API calls might be throttled, TODO: handle other HTTP errors
+        resp = requests.get(query_string)     
     #Convert JSON into Python Object 
     data_geo_location=json.loads(resp.content)
     if data_geo_location['found'] != 0:
